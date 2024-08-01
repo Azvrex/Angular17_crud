@@ -1,0 +1,106 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <h4>Members</h4>
+    </div>
+    <div class="col-6 text-end">
+      <button class="btn btn-outline-success" (click)="openModal()">Add New</button>
+    </div>
+  </div>
+  @if(memberList.length !==0){
+    <div class="row" >
+      @for (item of memberList; track $index){
+      <div class="col-3">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-6">
+              {{item.name}}
+              </div>
+              <div class="col-6 text-end">
+                {{item.mobileNo}}
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p>{{item.gender}}</p>
+            <p>{{item.city}}, {{item.province}}</p>
+            <p>{{item.email}}</p>
+          </div>
+          <div class="card-footer text-center">
+            <div class="row">
+              <div class="col-6">
+                <p>{{item.status}}</p>
+              </div>
+              <div class="col-6">
+                <button class="btn btn-sm btn-primary" (click)="onEdit(item)">Edit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    </div>
+  }@else{
+    <div class="row">
+      <div class="col-12 p-4 text-center">
+        <p>No Record Found.</p>
+      </div>
+    </div>
+  }
+</div>
+
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal" #myModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Create new member</h4>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-8">
+            <label for="">Name</label>
+            <input type="text" [(ngModel)]="memberObj.name" class="form-control" placeholder="Name">
+          </div>
+          <div class="col-6">
+            <label for="">Mobile Nnmber</label>
+            <input type="number" [(ngModel)]="memberObj.mobileNo" class="form-control" placeholder="00000000000">
+          </div>
+          <div class="col-6">
+            <label for="">Email</label>
+            <input type="text" [(ngModel)]="memberObj.email" class="form-control" placeholder="Email">
+          </div>
+          <div class="col-6">
+            <label for="">City</label>
+            <input type="text" [(ngModel)]="memberObj.city" class="form-control" placeholder="City">
+          </div>
+          <div class="col-6">
+            <label for="">Province</label>
+            <input type="text" [(ngModel)]="memberObj.province" class="form-control" placeholder="Province">
+          </div>
+          <div class="col-4">
+            <label for="">Gender</label>
+            <input type="text" [(ngModel)]="memberObj.gender" class="form-control" placeholder="Gender">
+          </div>
+          <div class="col-4">
+            <label for="">Status</label>
+            <input type="text" [(ngModel)]="memberObj.status" class="form-control" placeholder="Status">
+          </div>
+
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="closeModal()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveStudent()">Save</button>
+      </div>
+
+    </div>
+  </div>
+</div>

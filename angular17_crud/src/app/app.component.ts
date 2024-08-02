@@ -38,7 +38,7 @@ export class AppComponent implements OnInit{
   }
 
   //Save data to local storage
-  saveStudent(){
+  saveMember(){
     debugger;
     const isLocalPresent = localStorage.getItem("angular17crud");
     if(isLocalPresent != null){
@@ -56,9 +56,33 @@ export class AppComponent implements OnInit{
     }
     this.closeModal();
   }
+
   onEdit(item: Member){
     this.memberObj = item;
     this.openModal();
+  }
+
+  onDelete(item: Member){
+    const isDelete = confirm("Are you sure you wnat to Delete?");
+    if(isDelete){
+      const currentRecord = this.memberList.findIndex(m=> m.id === item.id);
+      this.memberList.splice(currentRecord,1);
+      localStorage.setItem('angular17crud',JSON.stringify(this.memberList));
+    }
+  }
+
+  updateMember(){
+    const currentRecord = this.memberList.find(m=> m.id === this.memberObj.id);
+    if(currentRecord != undefined){
+      currentRecord.name = this.memberObj.name;
+      currentRecord.mobileNo = this.memberObj.mobileNo;
+      currentRecord.gender = this.memberObj.gender;
+      currentRecord.city = this.memberObj.city;
+      currentRecord.province = this.memberObj.province;
+      currentRecord.status = this.memberObj.status;
+    }
+    localStorage.setItem('angular17crud',JSON.stringify(this.memberList));
+    this.closeModal();
   }
 }
 

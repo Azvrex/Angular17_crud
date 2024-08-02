@@ -34,6 +34,7 @@
               </div>
               <div class="col-6">
                 <button class="btn btn-sm btn-primary" (click)="onEdit(item)">Edit</button>
+                <button class="btn btn-sm btn-danger" (click)="onDelete(item)">Delete</button>
               </div>
             </div>
           </div>
@@ -98,7 +99,12 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" (click)="closeModal()">Close</button>
-        <button type="button" class="btn btn-primary" (click)="saveStudent()">Save</button>
+        @if (memberObj.id == 0){
+          <button type="button" class="btn btn-primary" (click)="saveMember()">Save</button>
+        }@else{
+          <button type="button" class="btn btn-success" (click)="updateMember()">Save</button>
+        }
+        
       </div>
 
     </div>

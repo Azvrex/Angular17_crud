@@ -7,48 +7,46 @@
       <button class="btn btn-outline-success" (click)="openModal()">Add New</button>
     </div>
   </div>
-  @if(memberList.length !==0){
-    <div class="row" >
-      @for (item of memberList; track $index){
-      <div class="col-3">
-        <div class="card">
-          <div class="card-header">
-            <div class="row">
-              <div class="col-6">
-              {{item.name}}
-              </div>
-              <div class="col-6 text-end">
-                {{item.mobileNo}}
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <p>{{item.gender}}</p>
-            <p>{{item.city}}, {{item.province}}</p>
-            <p>{{item.email}}</p>
-          </div>
-          <div class="card-footer text-center">
-            <div class="row">
-              <div class="col-6">
-                <p>{{item.status}}</p>
-              </div>
-              <div class="col-6">
-                <button class="btn btn-sm btn-primary" (click)="onEdit(item)">Edit</button>
-                <button class="btn btn-sm btn-danger" (click)="onDelete(item)">Delete</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    }
+  <div *ngIf="memberList.length !== 0; else noRecord">
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Mobile No</th>
+            <th>Gender</th>
+            <th>City</th>
+            <th>Province</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of memberList; let i = index">
+            <td>{{item.name}}</td>
+            <td>{{item.mobileNo}}</td>
+            <td>{{item.gender}}</td>
+            <td>{{item.city}}</td>
+            <td>{{item.province}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.status}}</td>
+            <td>
+              <button class="btn btn-sm btn-primary" (click)="onEdit(item)">Edit</button>
+              <button class="btn btn-sm btn-danger" (click)="onDelete(item)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  }@else{
+  </div>
+  <ng-template #noRecord>
     <div class="row">
       <div class="col-12 p-4 text-center">
         <p>No Record Found.</p>
       </div>
     </div>
-  }
+  </ng-template>
 </div>
 
 
@@ -71,11 +69,11 @@
           </div>
           <div class="col-6">
             <label for="">Mobile Nnmber</label>
-            <input type="number" [(ngModel)]="memberObj.mobileNo" class="form-control" placeholder="00000000000">
+            <input type="tel" [(ngModel)]="memberObj.mobileNo" class="form-control" pattern="[0-9]{11}">
           </div>
           <div class="col-6">
             <label for="">Email</label>
-            <input type="text" [(ngModel)]="memberObj.email" class="form-control" placeholder="Email">
+            <input type="email" [(ngModel)]="memberObj.email" class="form-control" placeholder="Email">
           </div>
           <div class="col-6">
             <label for="">City</label>
